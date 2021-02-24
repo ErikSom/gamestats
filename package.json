@@ -1,0 +1,39 @@
+{
+  "name": "gamestats.js",
+  "version": "0.9.1",
+  "description": "Javascript performance monitor / game stats library inspired by Unity's graphy",
+  "main": "build/gamestats.js",
+  "module": "build/gamestats.module.js",
+  "scripts": {
+    "build": "rollup -c",
+    "watch": "npm-run-all --parallel watch:*",
+    "watch:rollup": "rollup -cw",
+    "watch:server": "http-server ."
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.17",
+    "@babel/preset-env": "^7.12.17",
+    "@rollup/plugin-babel": "^5.3.0",
+    "@rollup/plugin-node-resolve": "^11.2.0",
+    "http-server": "^0.12.3",
+    "npm-run-all": "^4.1.5",
+    "rollup": "^2.39.0",
+    "rollup-plugin-terser": "^7.0.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ErikSom/gamestats.git"
+  },
+  "keywords": [
+    "game",
+    "stats",
+    "performance",
+    "fps"
+  ],
+  "author": "Erik Sombroek",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ErikSom/gamestats/issues"
+  },
+  "homepage": "https://github.com/ErikSom/gamestats#readme"
+}
