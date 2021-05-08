@@ -1,6 +1,6 @@
 {
   "name": "gamestats.js",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Javascript performance monitor / game stats library inspired by Unity's graphy",
   "main": "build/gamestats.js",
   "types": "src/index.d.ts",
