@@ -986,11 +986,12 @@
         this.canvas = document.createElement('canvas');
         this.canvas.width = this.config.baseCanvasWidth;
         this.canvas.height = this.config.baseCanvasHeight;
+        this.canvas.style.cssText = "width:".concat(this.config.baseCanvasWidth * this.config.scale, "px;height:").concat(this.config.baseCanvasHeight * this.config.scale, "px;background-color:").concat(this.config.COLOR_BG);
         this.ctx = this.canvas.getContext('2d');
         this.dom = document.createElement('div');
         this.dom.appendChild(this.canvas);
         this.dom.setAttribute('data', 'gamestats');
-        this.dom.style.cssText = "position:fixed;left:0;top:0;width:".concat(this.config.baseCanvasWidth * this.config.scale, "px;height:").concat(this.config.baseCanvasHeight * this.config.scale, "px;background-color:").concat(this.config.COLOR_BG);
+        this.dom.style.cssText = "position:fixed;left:0;top:0;display: flex;flex-direction: column;gap: 5px;";
 
         if (this.config.autoPlace) {
           document.body.appendChild(this.dom);
