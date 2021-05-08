@@ -10,6 +10,7 @@ For a live example click [here](https://eriksom.github.io/gamestats/example/)
 - MS milliseconds that where needed to render the last frame
 - Memory usage maximum (reserved) and allocated memory for the context (*Chrome only*)
 - Custom graphs
+- Extensions (e.g. VRAM stats for PIXI)
 
 ## Installation
 
@@ -48,7 +49,7 @@ function animate() {
 
 requestAnimationFrame( animate );
 ```
-See also this [example](https://github.com/ErikSom/gamestats/blob/main/example/index.html)
+See also this code [example](https://github.com/ErikSom/gamestats/blob/main/example/index.html)
 
 **Optional configurations**
 ```js
@@ -74,9 +75,40 @@ var config = {
 
 var stats = new GameStats(config);
 ```
+# Extensions
 
-**Pixi Integration**
-GameStats now also supports direct
+It's easy to add extensions to GameStats. To enable an extension use:
+```js
+var stats = new GameStats();
+stats.enableExtension(<name>, [<extension properties>])
+```
+
+** Make sure to put the extension module (e.g. gamestats-pixi.module.js) next to your source file**
+
+## Pixi Integration
+GameStats supports integration directly with PIXI to display VRAM usage and other helpful information:
+
+![Image of PIXI integration](https://i.imgur.com/vTFi4ua.gif)
+
+For a live example click [here](https://eriksom.github.io/gamestats/example/pixi)
+
+```js
+var stats = new GameStats();
+document.body.appendChild( stats.dom );
+
+// enableExtension(<name>, [<reference to PIXI>, <reference to your pixi app>, <options *optional>);
+stats.enableExtension('pixi', [PIXI, app]);
+
+// OR addtionally with options
+const options = {
+	maxMemorySize: 350, // GPU VRAM limit ( the max of the texture memory graph )
+	COLOR_MEM_TEXTURE: '#8ddcff', // the display color of the texture memory size in the graph
+	COLOR_MEM_BUFFER: '#ffd34d', // the display color of buffer memory size in the graph
+}
+stats.enableExtension('pixi', [PIXI, app, options]);
+
+```
+See also this code [example](https://github.com/ErikSom/gamestats/blob/main/example/pixi.html)
 
 ## Inspiration
 [Stats.js](https://github.com/mrdoob/stats.js) (mr doob)
