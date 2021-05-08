@@ -1,3 +1,9 @@
+
+[![npm version](https://badge.fury.io/js/gamestats.js.svg)](https://badge.fury.io/js/gamestats.js) Follow me on Twitter:[![Eriks Twitter][1.1]][1]
+
+[1.1]: https://i.imgur.com/tXSoThF.png
+
+[1]: https://www.twitter.com/ErikSombroek
 # gamestats.js
 
 ## Example
