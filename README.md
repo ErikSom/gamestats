@@ -75,6 +75,9 @@ var config = {
 var stats = new GameStats(config);
 ```
 
+**Pixi Integration**
+GameStats now also supports direct
+
 ## Inspiration
 [Stats.js](https://github.com/mrdoob/stats.js) (mr doob)
 

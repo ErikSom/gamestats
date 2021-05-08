@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>GameStats Pixi Extension example</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/6.0.2/browser/pixi.js"></script>
+	<script src="https://pixijs.io/examples/pixi-plugins/pixi-spine.js"></script>
+
+	<script src="../build/gamestats.js"></script>
+	<style>
+		html, body, canvas{
+			width:100%;
+			height:100%;
+			margin: 0;
+			padding:0;
+			color:white;
+		}
+
+		html{
+			background:#000;
+		}
+
+		div[data="gamestats"], button{
+			margin: 20px;
+			filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.3));
+		}
+
+	</style>
+</head>
+<body>
+	<script>
+		const app = new PIXI.Application();
+		document.body.appendChild(app.view);
+
+		const stats = new GameStats();
+		stats.dom.style.top = '0%';
+		stats.dom.style.left = '0%';
+
+		stats.enableExtension('pixi', [PIXI, app])
+
+		app.stop(); // custom render
+
+		// load spine data
+		app.loader
+			.add('pixie', 'https://pixijs.io/examples/examples/assets/pixi-spine/pixie.json')
+			.load(onAssetsLoaded);
+
+		let postition = 0;
+		let background;
+		let background2;
+		let foreground;
+		let foreground2;
+
+		app.stage.interactive = true;
+
+		function onAssetsLoaded(loader, res) {
+			background = PIXI.Sprite.from('https://pixijs.io/examples/examples/assets/pixi-spine/iP4_BGtile.jpg');
+			background2 = PIXI.Sprite.from('https://pixijs.io/examples/examples/assets/pixi-spine/iP4_BGtile.jpg');
+
+			foreground = PIXI.Sprite.from('https://pixijs.io/examples/examples/assets/pixi-spine/iP4_ground.png');
+			foreground2 = PIXI.Sprite.from('https://pixijs.io/examples/examples/assets/pixi-spine/iP4_ground.png');
+			foreground.anchor.set(0, 0.7);
+			foreground.position.y = app.screen.height;
+			foreground2.anchor.set(0, 0.7);
+			foreground2.position.y = app.screen.height;
+
+			app.stage.addChild(background, background2, foreground, foreground2);
+
+			const pixie = new PIXI.spine.Spine(res.pixie.spineData);
+
+			const scale = 0.3;
+
+			pixie.x = 1024 / 3;
+			pixie.y = 500;
+
+			pixie.scale.x = pixie.scale.y = scale;
+
+			app.stage.addChild(pixie);
+
+			pixie.stateData.setMix('running', 'jump', 0.2);
+			pixie.stateData.setMix('jump', 'running', 0.4);
+
+			pixie.state.setAnimation(0, 'running', true);
+
+			app.stage.on('pointerdown', onTouchStart);
+
+			function onTouchStart() {
+				pixie.state.setAnimation(0, 'jump', false);
+				pixie.state.addAnimation(0, 'running', true, 0);
+			}
+
+			ticker.start();
+		}
+
+		var ticker = new PIXI.Ticker();
+		ticker.add(() => {
+
+			stats.begin();
+
+			postition += 10;
+
+			background.x = -(postition * 0.6);
+			background.x %= 1286 * 2;
+			if (background.x < 0) {
+				background.x += 1286 * 2;
+			}
+			background.x -= 1286;
+
+			background2.x = -(postition * 0.6) + 1286;
+			background2.x %= 1286 * 2;
+			if (background2.x < 0) {
+				background2.x += 1286 * 2;
+			}
+			background2.x -= 1286;
+
+			foreground.x = -postition;
+			foreground.x %= 1286 * 2;
+			if (foreground.x < 0) {
+				foreground.x += 1286 * 2;
+			}
+			foreground.x -= 1286;
+
+			foreground2.x = -postition + 1286;
+			foreground2.x %= 1286 * 2;
+			if (foreground2.x < 0) {
+				foreground2.x += 1286 * 2;
+			}
+			foreground2.x -= 1286;
+
+			app.render();
+
+			stats.end();
+
+		}, PIXI.UPDATE_PRIORITY.LOW);
+
+	</script>
+</body>
+</html>

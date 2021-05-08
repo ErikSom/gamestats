@@ -35,6 +35,8 @@ export default class GameStats{
 		this.labelOrder = [];
 		this.graphYOffset = 0;
 
+		this.extensions = {};
+
 		this.config.baseCanvasWidth = 100 * this.config.scale;
 		this.config.baseCanvasHeight = 150* this.config.scale;
 
@@ -56,15 +58,20 @@ export default class GameStats{
 
 	init(){
 		this.canvas = document.createElement('canvas');
-		this.canvas.setAttribute('data', 'gamestats');
 		this.canvas.width = this.config.baseCanvasWidth;
 		this.canvas.height = this.config.baseCanvasHeight;
-		this.canvas.style.cssText = `position:fixed;left:0;top:0;width:${this.config.baseCanvasWidth * this.config.scale}px;height:${this.config.baseCanvasHeight * this.config.scale}px;background-color:${this.config.COLOR_BG}`;
-		if(this.config.autoPlace){
-			document.body.appendChild(this.canvas);
-		}
+
 		this.ctx = this.canvas.getContext('2d');
-		this.dom = this.canvas;
+		this.dom = document.createElement('div');
+
+		this.dom.appendChild(this.canvas);
+		this.dom.setAttribute('data', 'gamestats');
+		this.dom.style.cssText = `position:fixed;left:0;top:0;width:${this.config.baseCanvasWidth * this.config.scale}px;height:${this.config.baseCanvasHeight * this.config.scale}px;background-color:${this.config.COLOR_BG}`;
+
+
+		if(this.config.autoPlace){
+			document.body.appendChild(this.dom);
+		}
 
 		if(performance && performance.memory){
 			this.labels['memory'] = [];
@@ -112,6 +119,11 @@ export default class GameStats{
 			const beginTime = labelMeasures[labelMeasures.length-1];
 			labelMeasures[labelMeasures.length-1] = performance.now()-beginTime;
 		}
+		if(label === 'ms'){
+			for (const key in this.extensions) {
+				this.extensions[key].endFrame();
+			}
+		}
 	}
 
 	update(){
@@ -125,6 +137,9 @@ export default class GameStats{
 		}
 		if(this.canvas && this.canvas.parentNode){
 			setTimeout(this.update, this.config.redrawInterval);
+		}
+		for (const key in this.extensions) {
+			this.extensions[key].update();
 		}
 	}
 
@@ -377,6 +392,18 @@ export default class GameStats{
 		}
 		const c = (hash & 0x00FFFFFF).toString(16).toUpperCase();
 		return `#${"00000".substring(0, 6 - c.length)}${c}`;
+	}
+
+	async enableExtension(name, params){
+		if(this.extensions[name]) return null;
+		try{
+			const module = await import(`./gamestats-${name}.module.js`);
+			const extension = new module.default(this, ...params);
+			this.extensions[name] = extension;
+		}catch(e){
+			console.log(e);
+			return null;
+		}
 	}
 }
 
