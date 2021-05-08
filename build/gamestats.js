@@ -1037,7 +1037,7 @@
       key: "show",
       value: function show(visible) {
         this.shown = visible;
-        this.dom.style.display = visible ? 'block' : 'none';
+        this.dom.style.display = visible ? 'flex' : 'none';
       }
     }, {
       key: "end",

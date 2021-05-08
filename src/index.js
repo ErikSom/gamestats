@@ -113,7 +113,7 @@ export default class GameStats{
 
 	show(visible){
 		this.shown = visible;
-		this.dom.style.display = visible ? 'block' : 'none';
+		this.dom.style.display = visible ? 'flex' : 'none';
 	}
 
 	end(label='ms'){
