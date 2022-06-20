@@ -83,7 +83,7 @@ export default class PixiStats{
 			mem: {
 				// in MBs
 				textures: textureTotalMem / (1024 * 1024),
-				buffers: bufferTotatlMem / (1024 * 1204)
+				buffers: bufferTotatlMem / (1024 * 1024)
 			}
 		}
 	}
