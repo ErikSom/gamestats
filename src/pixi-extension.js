@@ -59,7 +59,7 @@ export default class PixiStats{
 		}
 
 		const textures = this.app.renderer.texture.managedTextures;
-		const buffers = this.app.renderer.geometry.managedBuffers;
+		const buffers = this.app.renderer.buffer ? this.app.renderer.buffer.managedBuffers : this.app.renderer.geometry.managedBuffers;
 		const rts = this.app.renderer.framebuffer.managedFramebuffers;
 
 		let textureTotalMem = 0;

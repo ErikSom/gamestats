@@ -84,7 +84,7 @@ var PixiStats = /*#__PURE__*/function () {
 
       var formatToSize = (_formatToSize = {}, _defineProperty(_formatToSize, this.pixi.FORMATS.RGB, 3), _defineProperty(_formatToSize, this.pixi.FORMATS.RGBA, 4), _defineProperty(_formatToSize, this.pixi.FORMATS.DEPTH_COMPONENT, 3), _defineProperty(_formatToSize, this.pixi.FORMATS.DEPTH_STENCIL, 4), _defineProperty(_formatToSize, this.pixi.FORMATS.ALPHA, 1), _defineProperty(_formatToSize, this.pixi.FORMATS.LUMINANCE, 1), _defineProperty(_formatToSize, this.pixi.FORMATS.LUMINANCE_ALPHA, 2), _formatToSize);
       var textures = this.app.renderer.texture.managedTextures;
-      var buffers = this.app.renderer.geometry.managedBuffers;
+      var buffers = this.app.renderer.buffer ? this.app.renderer.buffer.managedBuffers : this.app.renderer.geometry.managedBuffers;
       var rts = this.app.renderer.framebuffer.managedFramebuffers;
       var textureTotalMem = 0;
 
@@ -109,7 +109,7 @@ var PixiStats = /*#__PURE__*/function () {
         mem: {
           // in MBs
           textures: textureTotalMem / (1024 * 1024),
-          buffers: bufferTotatlMem / (1024 * 1204)
+          buffers: bufferTotatlMem / (1024 * 1024)
         }
       };
     }
