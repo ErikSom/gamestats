@@ -21,5 +21,7 @@ declare class GameStats {
 	constructor(options?: Options)
 	begin: (label?: string, color?: string) => void;
 	end: (label?: string, color?: string) => void;
+	show: (visible: boolean) => void;
+	enableExtension: (name: string, params: any[]) => Promise<void>;
 }
 export default GameStats;
