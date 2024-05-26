@@ -980,7 +980,7 @@ var GameStats = /*#__PURE__*/function () {
       this.canvas = document.createElement('canvas');
       this.canvas.width = this.config.baseCanvasWidth;
       this.canvas.height = this.config.baseCanvasHeight;
-      this.canvas.style.cssText = "width:".concat(this.config.baseCanvasWidth * this.config.scale, "px;height:").concat(this.config.baseCanvasHeight * this.config.scale, "px;background-color:").concat(this.config.COLOR_BG);
+      this.canvas.style.cssText = "width:".concat(this.config.baseCanvasWidth, "px;height:").concat(this.config.baseCanvasHeight, "px;background-color:").concat(this.config.COLOR_BG);
       this.ctx = this.canvas.getContext('2d');
       this.dom = document.createElement('div');
       this.dom.appendChild(this.canvas);
