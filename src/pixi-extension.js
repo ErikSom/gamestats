@@ -40,7 +40,7 @@ export default class PixiStats{
 		this.ctx = this.canvas.getContext('2d');
 		this.canvas.width = this.config.baseCanvasWidth;
 		this.canvas.height = this.config.baseCanvasHeight;
-		this.canvas.style.cssText = `width:${this.config.baseCanvasWidth * this.main.config.scale}px;height:${this.config.baseCanvasHeight * this.main.config.scale}px;background-color:${this.main.config.COLOR_BG}`;
+		this.canvas.style.cssText = `width:${this.config.baseCanvasWidth}px;height:${this.config.baseCanvasHeight}px;background-color:${this.main.config.COLOR_BG}`;
 
 		this.main.dom.appendChild(this.canvas);
 		this.update = this.update.bind(this);
