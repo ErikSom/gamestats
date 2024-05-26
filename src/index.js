@@ -38,7 +38,7 @@ export default class GameStats{
 		this.extensions = {};
 
 		this.config.baseCanvasWidth = 100 * this.config.scale;
-		this.config.baseCanvasHeight = 150* this.config.scale;
+		this.config.baseCanvasHeight = 150 * this.config.scale;
 
 		this.msGraph = {
 			width: this.config.baseCanvasWidth,
@@ -60,7 +60,7 @@ export default class GameStats{
 		this.canvas = document.createElement('canvas');
 		this.canvas.width = this.config.baseCanvasWidth;
 		this.canvas.height = this.config.baseCanvasHeight;
-		this.canvas.style.cssText = `width:${this.config.baseCanvasWidth * this.config.scale}px;height:${this.config.baseCanvasHeight * this.config.scale}px;background-color:${this.config.COLOR_BG}`;
+		this.canvas.style.cssText = `width:${this.config.baseCanvasWidth}px;height:${this.config.baseCanvasHeight}px;background-color:${this.config.COLOR_BG}`;
 
 
 		this.ctx = this.canvas.getContext('2d');
