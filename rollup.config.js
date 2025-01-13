@@ -33,11 +33,11 @@ export default [{
   },
 
   {
-	input: 'src/pixi-extension.js',
+	input: 'src/webgl-extension.js',
 	output: [{
-		file: './build/gamestats-pixi.module.js',
+		file: './build/gamestats-webgl.module.js',
 		format: 'es',
-		name:"PixiExtension",
+		name:"WebGLExtension",
 	}],
 	plugins:[
 		resolve(),

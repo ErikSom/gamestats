@@ -67,10 +67,8 @@ export default class GameStats{
 		this.dom = document.createElement('div');
 
 		this.dom.appendChild(this.canvas);
-		this.dom.setAttribute('data', 'gamestats');
+		this.dom.setAttribute('data', 'gamestats.js');
 		this.dom.style.cssText = `position:fixed;left:0;top:0;display: flex;flex-direction: column;gap: 5px;`;
-
-
 
 		if(this.config.autoPlace){
 			document.body.appendChild(this.dom);
@@ -84,7 +82,7 @@ export default class GameStats{
 	}
 
 	begin(label, color){
-		if(['ms', 'fps', 'memory'].includes(label)) throw `jsgraphy: label ${label} is reserved`;
+		if(['ms', 'fps', 'memory'].includes(label)) throw `gamestats.js: label ${label} is reserved`;
 		if(!label) label = 'ms';
 
 		if(label === 'ms' && this.currentTime) this.prevTime = this.currentTime;
@@ -108,6 +106,10 @@ export default class GameStats{
 				fpsMeasures.push(this.currentTime-this.prevTime);
 				if(fpsMeasures.length> this.config.maximumHistory) fpsMeasures.shift();
 			}
+
+			for (const key in this.extensions) {
+				this.extensions[key].beginFrame?.();
+			}
 		}
 	}
 
@@ -124,7 +126,7 @@ export default class GameStats{
 		}
 		if(label === 'ms'){
 			for (const key in this.extensions) {
-				this.extensions[key].endFrame();
+				this.extensions[key].endFrame?.();
 			}
 		}
 	}
@@ -397,17 +399,14 @@ export default class GameStats{
 		return `#${"00000".substring(0, 6 - c.length)}${c}`;
 	}
 
-	async enableExtension(name, params){
-		if(this.extensions[name]) return null;
-		try{
-			const module = await import(`./gamestats-${name}.module.js`);
-			const extension = new module.default(this, ...params);
-			this.extensions[name] = extension;
-		}catch(e){
-			console.log(e);
-			return null;
-		}
+	enableExtension(name, params = []){
+		if(!window.gameStatsExtensions[name]) return;
+		if(this.extensions[name]) return;
+		const extension = new window.gameStatsExtensions[name](this, ...params);
+		this.extensions[name] = extension;
 	}
 }
 
 const TOMB = 1048576;
+
+window.gameStatsExtensions = {};
