@@ -987,7 +987,7 @@
         this.canvas.width = this.config.baseCanvasWidth;
         this.canvas.height = this.config.baseCanvasHeight;
         this.canvas.style.cssText = "width:".concat(this.config.baseCanvasWidth, "px;height:").concat(this.config.baseCanvasHeight, "px;background-color:").concat(this.config.COLOR_BG);
-        this.ctx = this.canvas.getContext('2d');
+        this.ctx = this.canvas.getContext('2d', { willReadFrequently: true });
         this.dom = document.createElement('div');
         this.dom.appendChild(this.canvas);
         this.dom.setAttribute('data', 'gamestats');
