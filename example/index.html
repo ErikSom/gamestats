@@ -62,7 +62,7 @@
 		stats.dom.style.top = '50%';
 		stats.dom.style.left = '50%';
 
-		var ctx = c.getContext('2d');
+		var ctx = c.getContext('2d', { willReadFrequently: true });
 
 		function startAnimating(fps) {
 			fpsInterval = 1000 / fps;

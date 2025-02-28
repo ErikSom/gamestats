@@ -69,7 +69,7 @@ var PixiStats = /*#__PURE__*/function () {
     key: "init",
     value: function init() {
       this.canvas = document.createElement('canvas');
-      this.ctx = this.canvas.getContext('2d');
+      this.ctx = this.canvas.getContext('2d', { willReadFrequently: true });
       this.canvas.width = this.config.baseCanvasWidth;
       this.canvas.height = this.config.baseCanvasHeight;
       this.canvas.style.cssText = "width:".concat(this.config.baseCanvasWidth, "px;height:").concat(this.config.baseCanvasHeight, "px;background-color:").concat(this.main.config.COLOR_BG);

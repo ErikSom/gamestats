@@ -63,7 +63,7 @@ export default class GameStats{
 		this.canvas.style.cssText = `width:${this.config.baseCanvasWidth}px;height:${this.config.baseCanvasHeight}px;background-color:${this.config.COLOR_BG}`;
 
 
-		this.ctx = this.canvas.getContext('2d');
+		this.ctx = this.canvas.getContext('2d', {willReadFrequently: true});
 		this.dom = document.createElement('div');
 
 		this.dom.appendChild(this.canvas);
